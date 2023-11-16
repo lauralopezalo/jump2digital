@@ -1,11 +1,9 @@
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import "leaflet/dist/leaflet.css";
 import "./App.css";
 import Map from "./pages/Map";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import { useQuery } from "@tanstack/react-query";
-import { fetchPeople } from "./services/fetchPeople.js";
 import { fetchMonuments } from "./services/fetchMonuments.js";
+import { fetchPeople } from "./services/fetchPeople.js";
 
 function App() {
   const {
@@ -38,7 +36,7 @@ function App() {
   console.log(monumentsData);
   return (
     <>
-      <Map />
+      <Map peopleData={userData} monumentsData={monumentsData}/>
       {userData.map((item) => (
         <li key={item.id}>
           {item.id}

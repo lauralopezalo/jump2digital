@@ -1,34 +1,10 @@
 import { useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import getPeople from "../services/getPeople";
-import getMonuments from "../services/getMonuments";
-import L from 'leaflet';
-const Map = () => {
-    const [monumentsData, setMonumentsData] = useState([]);
-    const [peopleData, setPeopleData] = useState([]);
-
-    useEffect(() => {
-        const fetchMonuments = async () => {
-            try {
-                const response = await getMonuments();
-                setMonumentsData(response.data);
-                console.log("monumentsData=> " + monumentsData)
-            } catch (error) {
-                console.error("Error al obtener datos de la API:", error);
-            }
-        };
-
-        const fetchPeople = async () => {
-            try {
-                const response = await getPeople();
-                setPeopleData(response.data);
-            } catch (error) {
-                console.error("Error al obtener datos de la API:", error);
-            }
-        };
-        fetchMonuments();
-        fetchPeople();
-    }, [monumentsData]);
+// import getMonuments from "../services/getMonuments";
+import L from "leaflet";
+const Map = (props) => {
+    const [monumentsData, setMonumentsData] = useState(props.monumentsData);
+    const [peopleData, setPeopleData] = useState(props.peopleData);
 
     //   Calcular distancia entre puntos y número de personas próximas
     useEffect(() => {
@@ -68,7 +44,7 @@ const Map = () => {
                         { lat: person.lat, lng: person.lon }
                     );
 
-                    if (distanceToPerson <= 0.8) {
+                    if (distanceToPerson <= 0.4) {
                         peopleNearbyCount++;
                     }
                 });
@@ -80,20 +56,9 @@ const Map = () => {
         };
 
         calculatePeopleNearby();
-    }, [monumentsData, peopleData]); // Dependencias actualizadas para re-calcular cuando cambian los datos
-
-    // console.log("peopleNearby=> " + peopleNearby)
-    // const keys = Object.keys(peopleNearby);
-    // const values = Object.values(peopleNearby);
-    
-    // for (let i = 0; i < keys.length; i++) {
-    //     console.log(`Key: ${keys[i]}, Value: ${values[i]}`);
-    // }
-    
-    
+    }, [props]);
 
     const getCustomIcon = (url) => {
-        // console.log(url)
         if (!url) {
             return new L.Icon.Default();
         }
@@ -120,7 +85,11 @@ const Map = () => {
                 />
                 {/* Marcadores para los monumentos obtenidos de la API  */}
                 {monumentsData.map((monument) => (
-                    <Marker key={monument.id} position={[monument.lat, monument.lon]} icon={getCustomIcon(monument.url)}>
+                    <Marker
+                        key={monument.id}
+                        position={[monument.lat, monument.lon]}
+                        icon={getCustomIcon(monument.url)}
+                    >
                         <Popup>
                             <div>
                                 <h3>{monument.title}</h3>
@@ -131,7 +100,6 @@ const Map = () => {
                                 </p>
                             </div>
                         </Popup>
-                        {/* {console.log("id =>" + monument.title + " lat =>" + monument.lat + " lon =>" + monument.lon)} */}
                     </Marker>
                 ))}
 
@@ -141,7 +109,6 @@ const Map = () => {
                         <Popup>
                             Persona {index + 1} <br /> Easily customizable.
                         </Popup>
-                        {/* {console.log("id =>" + person.id + " lat =>" + person.lat + " lon =>" + person.lon)} */}
                     </Marker>
                 ))}
             </MapContainer>
