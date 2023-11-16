@@ -25,11 +25,6 @@ function App() {
     refetchInterval: 10000,
   });
 
-<<<<<<< HEAD
-  // </div>
-  <Map />
-  )
-=======
   if (userIsLoading || monumentsIsLoading) {
     return <p>Loading...</p>;
   }
@@ -41,7 +36,7 @@ function App() {
   console.log(monumentsData);
   return (
     <>
-      <Map peopleData={userData} monumentsData={monumentsData}/>
+      <Map peopleData={userData} monumentsData={monumentsData} />
       {userData.map((item) => (
         <li key={item.id}>
           {item.id}
@@ -61,7 +56,6 @@ function App() {
       ))}
     </>
   );
->>>>>>> main
 }
 
 export default App;
