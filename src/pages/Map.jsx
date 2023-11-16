@@ -116,7 +116,7 @@ const Map = (props) => {
 
             <div className="md:w-1/3">
                 <div>
-                    <List />
+                    <List monumentsData={monumentsData} />
                     {/* <ul>Esta es mi lista de monumentos</ul>
                     {monumentsData.map((monument) => (
                         <li key={monument.id}>
