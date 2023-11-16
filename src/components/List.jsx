@@ -18,7 +18,7 @@ const List = ({ monumentsData }) => {
     let height = 0
     const transitions = useTransition(
         rows.map(data => (
-            { ...data, y: (height += 300) - 300 }
+            { ...data, y: (height += 200) - 200 }
         )),
         {
             key: (item) => item.name,
