@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import List from '../components/List';
 const Map = () => {
 
 
@@ -103,14 +104,14 @@ const Map = () => {
 
 
             <div className="md:w-1/3">
-                <div>
+                {/* <div>
                     <ul>Esta es mi lista de monumentos</ul>
                     <li>Sagrada Familia
                         <br />
                         Número de personas en un radio de 400 metros: {sagradaFamilia.peopleNearby}
                     </li>
-                </div>
-
+                </div> */}
+                <List />
             </div>
         </div>
     )

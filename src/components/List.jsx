@@ -1,5 +1,6 @@
 import { animated, useTransition } from '@react-spring/web'
 import React, { useEffect, useState } from 'react'
+import data from './data.json'
 
 const List = () => {
     const [rows, set] = useState(data)
@@ -16,24 +17,25 @@ const List = () => {
     let height = 0
     const transitions = useTransition(
         rows.map(data => (
-            { ...data, y: (height += data.height) - data.height }
+            { ...data, y: (height += 100) - 100 }
         )),
         {
             key: (item) => item.name,
             from: { height: 0, opacity: 0 },
             leave: { height: 0, opacity: 0 },
-            enter: ({ y, height }) => ({ y, height, opacity: 1 }),
-            update: ({ y, height }) => ({ y, height }),
+            enter: ({ y, height }) => ({ y, height: 100, opacity: 1 }),
+            update: ({ y, height }) => ({ y, height: 100 }),
         }
     )
     return (
         <div className=''>
             {transitions((style, item, t, index) => (
-                <animated.div className='' style={{ zIndex: data.length - index, ...style }}>
-                    <div className=''>
+                <animated.div className='bg-red-400' style={{ zIndex: data.length - index, ...style }}>
+                    <div className='flex'>
                         {/* monumento image */}
+                        <div className='h-10 w-10' />
                         <h3>{item.name}</h3>
-                        <div className='' style={{ backgroundImage: item.css }}>{item.description}</div>
+                        <div>{item.description}</div>
                     </div>
                 </animated.div>
             ))}
