@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 // import getMonuments from "../services/getMonuments";
 import L from "leaflet";
+import List from "../components/List";
+
 const Map = (props) => {
     const [monumentsData, setMonumentsData] = useState(props.monumentsData);
     const [peopleData, setPeopleData] = useState(props.peopleData);
@@ -51,7 +53,6 @@ const Map = (props) => {
 
                 monument.peopleNearby = peopleNearbyCount;
             });
-
             setMonumentsData(newMonumentsData);
         };
 
@@ -115,7 +116,8 @@ const Map = (props) => {
 
             <div className="md:w-1/3">
                 <div>
-                    <ul>Esta es mi lista de monumentos</ul>
+                    <List />
+                    {/* <ul>Esta es mi lista de monumentos</ul>
                     {monumentsData.map((monument) => (
                         <li key={monument.id}>
                             {monument.title}
@@ -123,7 +125,7 @@ const Map = (props) => {
                             Número de personas en un radio de 800 metros:{" "}
                             {monument.peopleNearby}
                         </li>
-                    ))}
+                    ))} */}
                 </div>
             </div>
         </div>

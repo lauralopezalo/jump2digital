@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import "leaflet/dist/leaflet.css";
+import { useEffect } from "react";
 import "./App.css";
+import List from "./components/List.jsx";
 import Map from "./pages/Map";
 import { fetchMonuments } from "./services/fetchMonuments.js";
 import { fetchPeople } from "./services/fetchPeople.js";
@@ -32,28 +34,10 @@ function App() {
   if (userIsError || monumentsIsError) {
     return <p>Error fetching data</p>;
   }
-  console.log(userData);
-  console.log(monumentsData);
+
   return (
     <>
       <Map peopleData={userData} monumentsData={monumentsData} />
-      {userData.map((item) => (
-        <li key={item.id}>
-          {item.id}
-          {item.lat}
-          {item.lon}
-        </li>
-      ))}
-      {monumentsData.map((item) => (
-        <li key={item.id}>
-          {item.id}
-          {item.lat}
-          {item.lon}
-          {item.title}
-          {item.description}
-          {item.url}
-        </li>
-      ))}
     </>
   );
 }
