@@ -1,8 +1,8 @@
+import "leaflet/dist/leaflet.css";
 import { useState } from "react";
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import "./App.css";
 import Map from "./pages/Map";
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import "leaflet/dist/leaflet.css"
 
 function App() {
   return (
@@ -20,8 +20,8 @@ function App() {
     //   </MapContainer>
 
     // </div>
-    <Map/>
-    )
+    <Map />
+  )
 }
 
 export default App;

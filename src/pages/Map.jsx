@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 const Map = () => {
-   
+
 
     const [sagradaFamilia, setSagradaFamilia] = useState({
         name: 'Sagrada Familia',
