@@ -1,27 +1,21 @@
 # Barcelona Tranquila
 
-In this PRoject, we mada an implementation on sustainable tourism.
-
-## Table of Contents
-
-- [Project Overview](#project-overview)
-- [Technologies Used](#technologies-used)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Project Overview
-
-We splitted work in 3 parts. Data, backend and frontend.
+Welcome to the [Barcelona Tranquila](https://jump2digital-one.vercel.app/) repository! This web application provides real-time information on the crowd density at various monuments in Barcelona, helping users discover less crowded locations for a more relaxed tourist experience.
 
 ## Technologies Used
 
-List the technologies, frameworks, and libraries used in your project. For example:
+- **Vite:** A fast frontend build tool that enhances the development experience.
+- **React:** A popular JavaScript library for building user interfaces.
+- **Tailwind CSS:** A utility-first CSS framework for building responsive and stylish designs.
+- **Styled Components:** A CSS-in-JS library for styling React components.
+- **Tanstack Query:** A data fetching library for React that provides tools for handling data fetching, caching, and state management.
 
-- **React.js:** 
-- **Tailwind CSS:** 
-- **Tanstack Query:** 
+## Features
+
+- **Real-Time Crowd Information:** Get up-to-date information on the number of people at each monument.
+- **Intelligent Tourism Planning:** Discover and explore less crowded sites for a more enjoyable experience.
+- **Informed Decision-Making:** Make informed decisions about your travel destinations to avoid crowds and make the most of your visit.
+
 
 ## Getting Started
 
@@ -29,13 +23,13 @@ Guide users on how to set up and run your project locally. Include any prerequis
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/your-project.git
+git clone https://github.com/lauralopezalo/jump2digital.git
 
 # Navigate to the project directory
-cd your-project
+cd jump2digital
 
 # Install dependencies
 npm install
 
 # Start the development server
-npm start
+npm run dev
