@@ -2,6 +2,12 @@
 
 Welcome to the [Barcelona Tranquila](https://jump2digital-one.vercel.app/) repository! This web application provides real-time information on the crowd density at various monuments in Barcelona, helping users discover less crowded locations for a more relaxed tourist experience.
 
+## Team
+
+- **Backend:** Alba Márquez, Ankit Kumar
+- **Data:** Giovani Viacava, Pablo Ruiz Lopez, Quique López-Durán
+- **Frontend:** Laura López Alonso, Josep Lluis Cid Marti, Dreyan Franco
+
 ## Technologies Used
 
 - **Vite:** A fast frontend build tool that enhances the development experience.
@@ -9,6 +15,7 @@ Welcome to the [Barcelona Tranquila](https://jump2digital-one.vercel.app/) repos
 - **Tailwind CSS:** A utility-first CSS framework for building responsive and stylish designs.
 - **Styled Components:** A CSS-in-JS library for styling React components.
 - **Tanstack Query:** A data fetching library for React that provides tools for handling data fetching, caching, and state management.
+- **Supabase:**  An open-source Firebase alternative for rapid prototyping and building.
 
 ## Features
 
