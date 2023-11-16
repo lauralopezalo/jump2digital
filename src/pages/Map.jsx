@@ -6,7 +6,6 @@ import L from 'leaflet';
 const Map = () => {
     const [monumentsData, setMonumentsData] = useState([]);
     const [peopleData, setPeopleData] = useState([]);
-    const [peopleNearby, setPeopleNearby] = useState({});
 
     useEffect(() => {
         const fetchMonuments = async () => {
@@ -29,7 +28,7 @@ const Map = () => {
         };
         fetchMonuments();
         fetchPeople();
-    }, []);
+    }, [monumentsData]);
 
     //   Calcular distancia entre puntos y número de personas próximas
     useEffect(() => {
@@ -58,7 +57,7 @@ const Map = () => {
         };
 
         const calculatePeopleNearby = () => {
-            const newPeopleNearby = {};
+            const newMonumentsData = [...monumentsData];
 
             monumentsData.forEach((monument) => {
                 let peopleNearbyCount = 0;
@@ -74,30 +73,38 @@ const Map = () => {
                     }
                 });
 
-                newPeopleNearby[monument.id] = peopleNearbyCount;
-                console.log("newPeopleNearby.10=> " + newPeopleNearby)
+                monument.peopleNearby = peopleNearbyCount;
             });
 
-            setPeopleNearby(newPeopleNearby);
+            setMonumentsData(newMonumentsData);
         };
 
         calculatePeopleNearby();
     }, [monumentsData, peopleData]); // Dependencias actualizadas para re-calcular cuando cambian los datos
 
+    // console.log("peopleNearby=> " + peopleNearby)
+    // const keys = Object.keys(peopleNearby);
+    // const values = Object.values(peopleNearby);
+    
+    // for (let i = 0; i < keys.length; i++) {
+    //     console.log(`Key: ${keys[i]}, Value: ${values[i]}`);
+    // }
+    
+    
+
     const getCustomIcon = (url) => {
-        console.log(url)
+        // console.log(url)
         if (!url) {
-            // Si la URL es nula o vacía, utiliza un icono por defecto o maneja la situación según tus necesidades
             return new L.Icon.Default();
-          }
-        
-          return new L.Icon({
+        }
+
+        return new L.Icon({
             iconUrl: url,
             iconSize: [32, 32],
             iconAnchor: [16, 32],
             popupAnchor: [0, -32],
-          });
-      };
+        });
+    };
 
     return (
         <div className="w-screen h-screen block md:flex">
@@ -120,7 +127,7 @@ const Map = () => {
                                 <p>{monument.description}</p>
                                 <p>
                                     Número de personas en un radio de 400 metros:{" "}
-                                    {peopleNearby[monument.id]}
+                                    {monument.peopleNearby}
                                 </p>
                             </div>
                         </Popup>
@@ -134,7 +141,7 @@ const Map = () => {
                         <Popup>
                             Persona {index + 1} <br /> Easily customizable.
                         </Popup>
-                        {console.log("id =>" + person.id + " lat =>" + person.lat + " lon =>" + person.lon)}
+                        {/* {console.log("id =>" + person.id + " lat =>" + person.lat + " lon =>" + person.lon)} */}
                     </Marker>
                 ))}
             </MapContainer>
@@ -147,7 +154,7 @@ const Map = () => {
                             {monument.title}
                             <br />
                             Número de personas en un radio de 800 metros:{" "}
-                            {peopleNearby[monument.id]}
+                            {monument.peopleNearby}
                         </li>
                     ))}
                 </div>
