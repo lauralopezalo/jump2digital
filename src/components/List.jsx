@@ -23,15 +23,15 @@ const List = () => {
             key: (item) => item.name,
             from: { height: 0, opacity: 0 },
             leave: { height: 0, opacity: 0 },
-            enter: ({ y, height }) => ({ y, height: 100, opacity: 1 }),
-            update: ({ y, height }) => ({ y, height: 100 }),
+            enter: ({ y, height }) => ({ y, height, opacity: 1 }),
+            update: ({ y, height }) => ({ y, height }),
         }
     )
     return (
         <div className=''>
             {transitions((style, item, t, index) => (
-                <animated.div className='bg-red-400' style={{ zIndex: data.length - index, ...style }}>
-                    <div className='flex'>
+                <animated.div className='' style={{ zIndex: data.length - index, ...style }}>
+                    <div className='flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700'>
                         {/* monumento image */}
                         <div className='h-10 w-10' />
                         <h3>{item.name}</h3>
@@ -40,7 +40,6 @@ const List = () => {
                 </animated.div>
             ))}
         </div>
-
     )
 }
 

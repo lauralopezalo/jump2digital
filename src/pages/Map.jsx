@@ -103,7 +103,7 @@ const Map = () => {
 
 
 
-            <div className="md:w-1/3">
+            <div className="md:w-1/3 overflow-y-auto h-screen">
                 {/* <div>
                     <ul>Esta es mi lista de monumentos</ul>
                     <li>Sagrada Familia
