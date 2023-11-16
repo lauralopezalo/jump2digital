@@ -3,7 +3,6 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 // import getMonuments from "../services/getMonuments";
 import L from "leaflet";
 import List from "../components/List";
-
 const Map = (props) => {
     const [monumentsData, setMonumentsData] = useState(props.monumentsData);
     const [peopleData, setPeopleData] = useState(props.peopleData);
@@ -53,6 +52,7 @@ const Map = (props) => {
 
                 monument.peopleNearby = peopleNearbyCount;
             });
+
             setMonumentsData(newMonumentsData);
         };
 
@@ -61,12 +61,15 @@ const Map = (props) => {
 
     const getCustomIcon = (url) => {
         if (!url) {
-            return new L.Icon.Default();
+            return new L.Icon({
+                iconUrl: "https://iili.io/JndefMg.png",
+                iconSize: [16, 16],
+            });
         }
 
         return new L.Icon({
             iconUrl: url,
-            iconSize: [32, 32],
+            iconSize: [42, 42],
             iconAnchor: [16, 32],
             popupAnchor: [0, -32],
         });
@@ -106,26 +109,17 @@ const Map = (props) => {
 
                 {/* Marcadores para las personas obtenidas de la API */}
                 {peopleData.map((person, index) => (
-                    <Marker key={index} position={[person.lat, person.lon]}>
-                        <Popup>
-                            Persona {index + 1} <br /> Easily customizable.
-                        </Popup>
-                    </Marker>
+                    <Marker
+                        key={index}
+                        position={[person.lat, person.lon]}
+                        icon={getCustomIcon()}
+                    ></Marker>
                 ))}
             </MapContainer>
 
             <div className="md:w-1/3">
                 <div>
                     <List monumentsData={monumentsData} />
-                    {/* <ul>Esta es mi lista de monumentos</ul>
-                    {monumentsData.map((monument) => (
-                        <li key={monument.id}>
-                            {monument.title}
-                            <br />
-                            Número de personas en un radio de 800 metros:{" "}
-                            {monument.peopleNearby}
-                        </li>
-                    ))} */}
                 </div>
             </div>
         </div>

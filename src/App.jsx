@@ -1,13 +1,35 @@
 import { useQuery } from "@tanstack/react-query";
 import "leaflet/dist/leaflet.css";
-import { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "./App.css";
+import About from "./components/About.jsx";
+import Footer from "./components/Footer.jsx";
+import Home from "./components/Home.jsx";
 import List from "./components/List.jsx";
 import Map from "./pages/Map";
 import { fetchMonuments } from "./services/fetchMonuments.js";
 import { fetchPeople } from "./services/fetchPeople.js";
 
 function App() {
+
+  const aboutUsRef = useRef(null);
+  const mapRef = useRef(null);
+  const footerRef = useRef(null);
+
+  const scrollToAboutUsSection = () => {
+    aboutUsRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToMapSection = () => {
+    mapRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToFooterSection = () => {
+    footerRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
+
+
   const {
     data: userData,
     isLoading: userIsLoading,
@@ -24,7 +46,6 @@ function App() {
   } = useQuery({
     queryKey: ["fetchMonuments"],
     queryFn: fetchMonuments,
-    refetchInterval: 10000,
   });
 
   if (userIsLoading || monumentsIsLoading) {
@@ -35,9 +56,23 @@ function App() {
     return <p>Error fetching data</p>;
   }
 
+
+
+
   return (
     <>
-      <Map peopleData={userData} monumentsData={monumentsData} />
+      <Home scrollToAboutUsSection={scrollToAboutUsSection}
+        scrollToMapSection={scrollToMapSection}
+        scrollToFooterSection={scrollToFooterSection} />
+      <div ref={aboutUsRef} id="aboutUs-section">
+        <About />
+      </div>
+      <div ref={mapRef} id="map-section" >
+        <Map peopleData={userData} monumentsData={monumentsData} />
+      </div>
+      <div ref={footerRef} id="footer-section" >
+        <Footer />
+      </div>
     </>
   );
 }
