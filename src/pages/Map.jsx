@@ -1,17 +1,37 @@
-import { useEffect, useState } from 'react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+import { useEffect, useState } from "react";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import getPeople from "../services/getPeople";
+import getMonuments from "../services/getMonuments";
+import L from 'leaflet';
 const Map = () => {
-   
+    const [monumentsData, setMonumentsData] = useState([]);
+    const [peopleData, setPeopleData] = useState([]);
+    const [peopleNearby, setPeopleNearby] = useState({});
 
-    const [sagradaFamilia, setSagradaFamilia] = useState({
-        name: 'Sagrada Familia',
-        coords: [41.4036, 2.1744],
-        peopleNearby: 0,
-    });
+    useEffect(() => {
+        const fetchMonuments = async () => {
+            try {
+                const response = await getMonuments();
+                setMonumentsData(response.data);
+                console.log("monumentsData=> " + monumentsData)
+            } catch (error) {
+                console.error("Error al obtener datos de la API:", error);
+            }
+        };
 
-    const persona1Coords = [41.4093, 2.2144];
-    const persona2Coords = [41.40380199996997, 2.1785917256505973];
+        const fetchPeople = async () => {
+            try {
+                const response = await getPeople();
+                setPeopleData(response.data);
+            } catch (error) {
+                console.error("Error al obtener datos de la API:", error);
+            }
+        };
+        fetchMonuments();
+        fetchPeople();
+    }, []);
 
+    //   Calcular distancia entre puntos y número de personas próximas
     useEffect(() => {
         // Función para calcular la distancia entre dos puntos
         const calculateDistance = (latlng1, latlng2) => {
@@ -37,83 +57,103 @@ const Map = () => {
             return distance;
         };
 
-        // Calcula la distancia y el número de personas en un radio de 400 metros
         const calculatePeopleNearby = () => {
-            let peopleNearby = 0;
+            const newPeopleNearby = {};
 
-            // Calcula la distancia entre Sagrada Familia y Persona 1
-            const distanceToPersona1 = calculateDistance(
-                { lat: sagradaFamilia.coords[0], lng: sagradaFamilia.coords[1] },
-                { lat: persona1Coords[0], lng: persona1Coords[1] }
-            );
+            monumentsData.forEach((monument) => {
+                let peopleNearbyCount = 0;
 
-            // Calcula la distancia entre Sagrada Familia y Persona 2
-            const distanceToPersona2 = calculateDistance(
-                { lat: sagradaFamilia.coords[0], lng: sagradaFamilia.coords[1] },
-                { lat: persona2Coords[0], lng: persona2Coords[1] }
-            );
+                peopleData.forEach((person) => {
+                    const distanceToPerson = calculateDistance(
+                        { lat: monument.lat, lng: monument.lon },
+                        { lat: person.lat, lng: person.lon }
+                    );
 
-            // Verifica si las personas están dentro de un radio de 400 metros
-            if (distanceToPersona1 <= 0.4) {
-                peopleNearby++;
-            }
+                    if (distanceToPerson <= 0.8) {
+                        peopleNearbyCount++;
+                    }
+                });
 
-            if (distanceToPersona2 <= 0.4) {
-                peopleNearby++;
-            }
+                newPeopleNearby[monument.id] = peopleNearbyCount;
+                console.log("newPeopleNearby.10=> " + newPeopleNearby)
+            });
 
-            return peopleNearby;
+            setPeopleNearby(newPeopleNearby);
         };
 
-        // Actualiza el número de personas en un radio de 200 metros
-        const peopleNearby = calculatePeopleNearby();
-        setSagradaFamilia((prev) => ({ ...prev, peopleNearby: peopleNearby }));
-    }, []);
+        calculatePeopleNearby();
+    }, [monumentsData, peopleData]); // Dependencias actualizadas para re-calcular cuando cambian los datos
+
+    const getCustomIcon = (url) => {
+        console.log(url)
+        if (!url) {
+            // Si la URL es nula o vacía, utiliza un icono por defecto o maneja la situación según tus necesidades
+            return new L.Icon.Default();
+          }
+        
+          return new L.Icon({
+            iconUrl: url,
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32],
+          });
+      };
 
     return (
-        <div className='w-screen h-screen block md:flex'>
-            <MapContainer className='md:w-2/3 md:h-full' center={[41.3874, 2.1868]} zoom={13} scrollWheelZoom={false}>
+        <div className="w-screen h-screen block md:flex">
+            <MapContainer
+                className="md:w-2/3 md:h-full"
+                center={[41.3874, 2.1868]}
+                zoom={13}
+                scrollWheelZoom={false}
+            >
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {/* Sagrada Familia */}
-                <Marker position={[41.4036, 2.1744]}>
-                    <Popup>
-                        Sagrada familia <br /> Easily customizable.
-                    </Popup>
-                </Marker>
+                {/* Marcadores para los monumentos obtenidos de la API  */}
+                {monumentsData.map((monument) => (
+                    <Marker key={monument.id} position={[monument.lat, monument.lon]} icon={getCustomIcon(monument.url)}>
+                        <Popup>
+                            <div>
+                                <h3>{monument.title}</h3>
+                                <p>{monument.description}</p>
+                                <p>
+                                    Número de personas en un radio de 400 metros:{" "}
+                                    {peopleNearby[monument.id]}
+                                </p>
+                            </div>
+                        </Popup>
+                        {/* {console.log("id =>" + monument.title + " lat =>" + monument.lat + " lon =>" + monument.lon)} */}
+                    </Marker>
+                ))}
 
-                {/* Persona 1 */}
-                <Marker position={persona1Coords}>
-                    <Popup>
-                        Persona 1 <br /> Easily customizable.
-                    </Popup>
-                </Marker>
-
-                {/* Persona 2 */}
-                <Marker position={persona2Coords}>
-                    <Popup>
-                        Persona 2 <br /> Easily customizable.
-                    </Popup>
-                </Marker>
+                {/* Marcadores para las personas obtenidas de la API */}
+                {peopleData.map((person, index) => (
+                    <Marker key={index} position={[person.lat, person.lon]}>
+                        <Popup>
+                            Persona {index + 1} <br /> Easily customizable.
+                        </Popup>
+                        {console.log("id =>" + person.id + " lat =>" + person.lat + " lon =>" + person.lon)}
+                    </Marker>
+                ))}
             </MapContainer>
-
-
-
 
             <div className="md:w-1/3">
                 <div>
                     <ul>Esta es mi lista de monumentos</ul>
-                    <li>Sagrada Familia
-                        <br />
-                        Número de personas en un radio de 400 metros: {sagradaFamilia.peopleNearby}
-                    </li>
+                    {monumentsData.map((monument) => (
+                        <li key={monument.id}>
+                            {monument.title}
+                            <br />
+                            Número de personas en un radio de 800 metros:{" "}
+                            {peopleNearby[monument.id]}
+                        </li>
+                    ))}
                 </div>
-
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Map;

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const fetchPeople = async () => {
+const getPeople = async () => {
 
     const url = "https://hackaton-map-back.vercel.app/users";
     
@@ -12,4 +12,4 @@ const fetchPeople = async () => {
     }
 };
 
-export default fetchPeople;
+export default getPeople;
