@@ -40,3 +40,18 @@ npm install
 
 # Start the development server
 npm run dev
+```
+## Conclusions 
+
+Aligned with **Agenda 2030 SDG 11: Sustainable Cities and Communities**, this project promotes more sustainable and responsible tourism in Barcelona. It provides real-time information to help visitors avoid overcrowded areas, reducing the environmental and social impact of mass tourism.
+- The project utilizes the city's open data to create a technological solution that encourages transparency, civic collaboration, and sustainable development.
+- It enhances the experience for both residents and visitors, making the city more welcoming and livable.
+- By directing tourist flow towards lesser-known areas, economic benefits are distributed more evenly throughout the city. It also alleviates pressure on popular sites.
+  
+In regards to scalability, some options could be:
+- Leveraging big data and AI to gain deeper insights into tourism patterns.
+- Adding geolocated advertising for local businesses based on user location.
+- Incorporating additional data on opening hours, events, weather, etc. to offer more personalized recommendations.
+
+
+
