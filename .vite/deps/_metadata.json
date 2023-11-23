@@ -1,0 +1,65 @@
+{
+  "hash": "46fd987f",
+  "browserHash": "fd5acf82",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "6a45446c",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "e0513610",
+      "needsInterop": true
+    },
+    "@tanstack/react-query": {
+      "src": "../../node_modules/@tanstack/react-query/build/modern/index.js",
+      "file": "@tanstack_react-query.js",
+      "fileHash": "7c777321",
+      "needsInterop": false
+    },
+    "@tanstack/react-query-devtools": {
+      "src": "../../node_modules/@tanstack/react-query-devtools/build/modern/index.js",
+      "file": "@tanstack_react-query-devtools.js",
+      "fileHash": "65a33dab",
+      "needsInterop": false
+    },
+    "react-leaflet": {
+      "src": "../../node_modules/react-leaflet/lib/index.js",
+      "file": "react-leaflet.js",
+      "fileHash": "69e4338d",
+      "needsInterop": false
+    },
+    "leaflet": {
+      "src": "../../node_modules/leaflet/dist/leaflet-src.js",
+      "file": "leaflet.js",
+      "fileHash": "a6129edc",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-2T4JOYOP": {
+      "file": "chunk-2T4JOYOP.js"
+    },
+    "chunk-2U5K6HM5": {
+      "file": "chunk-2U5K6HM5.js"
+    },
+    "chunk-WNN2STMZ": {
+      "file": "chunk-WNN2STMZ.js"
+    },
+    "chunk-MX3M5TNS": {
+      "file": "chunk-MX3M5TNS.js"
+    },
+    "4HZPHOEU-JVM3OC3V": {
+      "file": "4HZPHOEU-JVM3OC3V.js"
+    },
+    "chunk-2BF3WH45": {
+      "file": "chunk-2BF3WH45.js"
+    },
+    "chunk-WYXF2I3I": {
+      "file": "chunk-WYXF2I3I.js"
+    }
+  }
+}

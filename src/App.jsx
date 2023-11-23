@@ -1,14 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import "leaflet/dist/leaflet.css";
-import React, { useEffect, useRef } from "react";
-import "./App.css";
+import { useRef } from "react";
 import About from "./components/About.jsx";
 import Footer from "./components/Footer.jsx";
 import Home from "./components/Home.jsx";
-import List from "./components/List.jsx";
 import Map from "./pages/Map";
 import { fetchMonuments } from "./services/fetchMonuments.js";
 import { fetchPeople } from "./services/fetchPeople.js";
+import { GlobalStyle } from "./GlobalStyle.js";
 
 function App() {
 
@@ -37,7 +36,7 @@ function App() {
   } = useQuery({
     queryKey: ["fetchPeople"],
     queryFn: fetchPeople,
-    refetchInterval: 10000,
+    // refetchInterval: 10000,
   });
   const {
     data: monumentsData,
@@ -61,6 +60,7 @@ function App() {
 
   return (
     <>
+    <GlobalStyle />
       <Home scrollToAboutUsSection={scrollToAboutUsSection}
         scrollToMapSection={scrollToMapSection}
         scrollToFooterSection={scrollToFooterSection} />

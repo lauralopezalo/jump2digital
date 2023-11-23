@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-// import getMonuments from "../services/getMonuments";
 import L from "leaflet";
 import List from "../components/List";
 const Map = (props) => {
@@ -76,9 +75,9 @@ const Map = (props) => {
     };
 
     return (
-        <div className="w-screen h-screen block md:flex">
+        <div className="w-screen h-screen flex flex-col lg:flex-row">
             <MapContainer
-                className="md:w-2/3 md:h-full"
+                className="lg:w-3/5 lg:h-full min-h-screen"
                 center={[41.3874, 2.1868]}
                 zoom={13}
                 scrollWheelZoom={false}
@@ -99,8 +98,7 @@ const Map = (props) => {
                                 <h3>{monument.title}</h3>
                                 <p>{monument.description}</p>
                                 <p>
-                                    Número de personas en un radio de 400 metros:{" "}
-                                    {monument.peopleNearby}
+                                    Number of people in a 400 meter radius: {monument.peopleNearby}
                                 </p>
                             </div>
                         </Popup>
@@ -117,10 +115,11 @@ const Map = (props) => {
                 ))}
             </MapContainer>
 
-            <div className="md:w-1/3">
-                <div>
+            <div className="lg:w-2/5">
+                {/* <div> */}
                     <List monumentsData={monumentsData} />
-                </div>
+                {/* </div> */}
+
             </div>
         </div>
     );
